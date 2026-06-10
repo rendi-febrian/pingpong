@@ -63,6 +63,7 @@ app.post('/api/endpoints', (req, res) => {
   let { url, label } = req.body;
   if (!url) return res.status(400).json({ error: 'URL is required' });
   
+  const originalInput = url.trim();
   url = normalizeUrl(url);
 
   const data = loadData();
@@ -71,7 +72,7 @@ app.post('/api/endpoints', (req, res) => {
   }
 
   const id = Date.now() + Math.floor(Math.random() * 1000);
-  const ep = { id, url, label: label || url, created_at: Date.now(), is_active: true };
+  const ep = { id, url, label: label || originalInput, created_at: Date.now(), is_active: true };
   data.endpoints.push(ep);
   saveData(data);
 
