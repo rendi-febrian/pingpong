@@ -54,8 +54,12 @@ app.get('/api/endpoints', (req, res) => {
 
 // Add endpoint
 app.post('/api/endpoints', (req, res) => {
-  const { url, label } = req.body;
+  let { url, label } = req.body;
   if (!url) return res.status(400).json({ error: 'URL is required' });
+  
+  // Auto-add https:// if no protocol specified
+  url = url.trim();
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
 
   const data = loadData();
   if (data.endpoints.some(e => e.url === url)) {
