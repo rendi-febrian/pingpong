@@ -1,0 +1,13 @@
+{
+  "name": "pingpong",
+  "version": "1.0.0",
+  "description": "PingPong - URL Uptime Monitor. Check your endpoints, see live status.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}

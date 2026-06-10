@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PingPong 🏓 — Uptime Monitor</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🏓</span>
+      <h1>PingPong</h1>
+      <span class="badge">Uptime Monitor</span>
+    </div>
+    <div class="header-stats" id="headerStats">
+      <span>Up: <strong id="upCount">0</strong></span>
+      <span>Down: <strong id="downCount">0</strong></span>
+      <span>Total: <strong id="totalCount">0</strong></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="add-form">
+      <input type="text" id="urlInput" placeholder="https://example.com" autocomplete="url">
+      <input type="text" id="labelInput" placeholder="Label (optional)">
+      <button id="addBtn" onclick="addEndpoint()">➕ Add</button>
+      <button id="checkAllBtn" onclick="checkAll()">🔄 Check All</button>
+    </section>
+
+    <section id="statusBanner" class="status-banner hidden">
+      <span id="bannerMsg"></span>
+    </section>
+
+    <section class="dashboard" id="dashboard">
+      <div class="empty-state">
+        <div class="empty-icon">🏓</div>
+        <h2>No endpoints yet</h2>
+        <p>Add URLs above to start monitoring their uptime.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>PingPong 🏓 — Built with Node.js + SQLite</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
