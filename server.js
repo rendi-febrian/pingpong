@@ -7,6 +7,12 @@ const PORT = process.env.PORT || 4567;
 const DATA_FILE = path.join(__dirname, 'data.json');
 
 // --- Data helpers ---
+function normalizeUrl(url) {
+  url = url.trim();
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  return url;
+}
+
 function loadData() {
   try {
     if (!fs.existsSync(DATA_FILE)) return { endpoints: [], checks: [] };
@@ -57,9 +63,7 @@ app.post('/api/endpoints', (req, res) => {
   let { url, label } = req.body;
   if (!url) return res.status(400).json({ error: 'URL is required' });
   
-  // Auto-add https:// if no protocol specified
-  url = url.trim();
-  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  url = normalizeUrl(url);
 
   const data = loadData();
   if (data.endpoints.some(e => e.url === url)) {
@@ -89,6 +93,9 @@ app.post('/api/endpoints/:id/check', async (req, res) => {
   const data = loadData();
   const ep = data.endpoints.find(e => e.id === parseInt(req.params.id));
   if (!ep) return res.status(404).json({ error: 'Not found' });
+
+  // Normalize URL just in case
+  ep.url = normalizeUrl(ep.url);
 
   const start = Date.now();
   try {
